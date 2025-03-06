@@ -1,0 +1,59 @@
+body {
+    font-family: 'Open Sans', sans-serif;
+    background: linear-gradient(180deg, #83a4d4 ,#83a4d5);
+    color: #303030;
+}
+.wrapper {
+    max-width: 900px;
+    margin: 20px auto;
+    background: linear-gradient(45deg, #ff7e5f, #feb47b);
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+}
+.user-session {
+    max-width: 900px;
+    margin: 20px auto;
+    background: linear-gradient(45deg, #ff7e5f, #feb47b); 
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    color: #303030;
+    text-align: center;
+    
+}
+.user-session-inner {
+    background: linear-gradient(45deg, #f0e130, #f9eb92); 
+    padding: 20px;
+    border-radius: 15px;
+}
+
+.user-session a {
+    color: #303030; 
+}
+
+.user-session .btn-exit {
+    background-color: #FF0000; 
+    color: #FFFFFF;
+    border: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    text-decoration: none;
+}
+
+.user-session .btn-exit:hover {
+    background-color: #CC0000; 
+    text-decoration: none;
+}
+.inner {
+    background: linear-gradient(45deg, #f0e130, #f9eb92);
+    padding: 20px;
+    border-radius: 15px;
+}
+.btn i {
+    margin-right: 5px;
+}
+.btn-custom {
+    background-color: #ff7e5f;
+    color: white;
+}
