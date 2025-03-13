@@ -1,5 +1,24 @@
 <?php
 include("auth_session.php");
+
+function splitName($name) {
+    $name = trim($name);
+    $parts = explode(' ', $name);
+    if (count($parts) == 1) {
+        return [
+            'first' => $parts[0],
+            'last' => ''
+        ];
+    }
+    $lastName = array_pop($parts);
+    $firstName = implode(' ', $parts);
+    
+    return [
+        'first' => $firstName,
+        'last' => $lastName
+    ];
+}
+
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -25,12 +44,12 @@ include("auth_session.php");
 </head>
 <body>
     <div class="user-session">
-                <div class="user-session-inner">
-                    <p><h1><strong>Здравей, <?php echo $_SESSION['username']; ?>!</strong></h1></p>
-                    <p><h3><strong>Вие се намирате във вашият контролен панел.</strong></h3></p>
-                    <p><a href="logout.php" class="btn-exit"><strong>Изход</strong></a></p>
-                </div>
-            </div>
+        <div class="user-session-inner">
+            <p><h1><strong>Здравей, <?php echo $_SESSION['username']; ?>!</strong></h1></p>
+            <p><h3><strong>Вие се намирате във вашият контролен панел.</strong></h3></p>
+            <p><a href="logout.php" class="btn-exit"><strong>Изход</strong></a></p>
+        </div>
+    </div>
     <div class="wrapper">
         <div class="inner">
             <div class="container-fluid">
@@ -54,6 +73,7 @@ include("auth_session.php");
                                     echo "<tr>";
                                         echo "<th>ID</th>";
                                         echo "<th>Име</th>";
+                                        echo "<th>Фамилия</th>";
                                         echo "<th>Възраст</th>";
                                         echo "<th>Крайна Оценка</th>";
                                         echo "<th>Действие</th>";
@@ -61,11 +81,15 @@ include("auth_session.php");
                                 echo "</thead>";
                                 echo "<tbody>";
                                 while($row = mysqli_fetch_array($result)){
+                                    // Split the name using our function
+                                    $nameParts = splitName($row['name']);
+                                    
                                     echo "<tr>";
-                                        echo "<td>" . $row['student_id'] . "</td>";
-                                        echo "<td>" . $row['name'] . "</td>";
-                                        echo "<td>" . $row['age'] . "</td>";
-                                        echo "<td>" . $row['overall_grade'] . "</td>";
+                                        echo "<td>" . _e($row['student_id']) . "</td>";
+                                        echo "<td>" . _e($nameParts['first']) . "</td>";
+                                        echo "<td>" . _e($nameParts['last']) . "</td>";
+                                        echo "<td>" . _e($row['age']) . "</td>";
+                                        echo "<td>" . _e($row['overall_grade']) . "</td>";
                                         echo "<td>";
                                         echo '<a href="read.php?id='. $row['student_id'] .'" class="mx-2 px-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Преглед"><span class="fas fa-eye"></span></a>';
                                         echo '<a href="update.php?id='. $row['student_id'] .'" class="mx-2 px-1" data-bs-toggle="tooltip" data-bs-placement="top" title="Редактиране"><span class="fas fa-pencil-alt"></span></a>';
@@ -93,13 +117,3 @@ include("auth_session.php");
     </div>
 </body>
 </html>
-
-
-                <!-- БИБЛИОТЕКА -->
-
-<!-- mysqli_query() — Извършва заявка в базата данни -->
-<!-- mysqli_num_rows() — Получава броя на редовете в резултатния набор -->
-<!-- mysqli_fetch_array() — Извличане на ред от резултатен набор като асоциативен, числов масив -->
-<!-- mysqli_free_result() — Освобождава паметта, свързана с резултат -->
-<!-- mysqli_close() — Затваря предварително отворена връзка с база данни -->
-
